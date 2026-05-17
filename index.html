@@ -23,10 +23,8 @@
     @keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-8px)} }
     h1 { font-family: var(--mono); font-size: 1.1rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; }
     .subtitle { font-size: 0.8rem; color: var(--muted); margin-top: 0.25rem; }
-
     .alarms { width: 100%; display: flex; flex-direction: column; gap: 0.6rem; }
     .alarm-card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 0.9rem 1.2rem; display: flex; align-items: center; justify-content: space-between; opacity: 0.4; transition: all 0.3s; }
-    .alarm-card.active  { opacity: 1; border-color: var(--accent); transform: scale(1.01); }
     .alarm-card.waiting { opacity: 1; border-color: #ff9f43; }
     .alarm-card.done    { opacity: 1; border-color: var(--green); }
     .alarm-label { font-size: 0.72rem; color: var(--muted); font-family: var(--mono); letter-spacing: 0.08em; }
@@ -34,42 +32,22 @@
     .alarm-time  { font-family: var(--mono); font-size: 1.3rem; font-weight: 700; margin-top: 0.2rem; }
     .alarm-time.done { color: var(--green); }
     .alarm-badge { font-size: 0.68rem; font-family: var(--mono); color: var(--muted); background: var(--border); padding: 0.2rem 0.5rem; border-radius: 6px; white-space: nowrap; }
-
-    /* Step buttons */
     .step-btns { width: 100%; display: flex; flex-direction: column; gap: 0.7rem; }
-    .step-btn {
-      width: 100%; padding: 1rem 1.2rem; border-radius: 14px; border: 1.5px solid var(--accent);
-      background: rgba(124,106,255,0.1); color: var(--text); font-family: var(--mono);
-      font-size: 0.8rem; cursor: pointer; text-align: left; letter-spacing: 0.05em;
-      display: flex; align-items: center; justify-content: space-between;
-      transition: background 0.2s, transform 0.1s;
-    }
+    .step-btn { width: 100%; padding: 1rem 1.2rem; border-radius: 14px; border: 1.5px solid var(--accent); background: rgba(124,106,255,0.1); color: var(--text); font-family: var(--mono); font-size: 0.8rem; cursor: pointer; text-align: left; letter-spacing: 0.05em; display: flex; align-items: center; justify-content: space-between; transition: background 0.2s, transform 0.1s; }
     .step-btn:active { transform: scale(0.98); }
     .step-btn:disabled { opacity: 0.35; cursor: default; border-color: var(--border); background: none; }
     .step-btn.done { border-color: var(--green); background: rgba(46,204,113,0.08); color: var(--green); }
-    .step-btn .arrow { font-size: 1rem; }
-
-    .big-btn {
-      width: 160px; height: 160px; border-radius: 50%; border: none;
-      background: conic-gradient(from 180deg, var(--accent), var(--accent2), var(--accent));
-      cursor: pointer; display: flex; flex-direction: column; align-items: center; justify-content: center;
-      gap: 0.4rem; box-shadow: 0 0 40px rgba(124,106,255,0.3);
-      transition: transform 0.15s; position: relative; overflow: hidden;
-    }
+    .big-btn { width: 160px; height: 160px; border-radius: 50%; border: none; background: conic-gradient(from 180deg, var(--accent), var(--accent2), var(--accent)); cursor: pointer; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.4rem; box-shadow: 0 0 40px rgba(124,106,255,0.3); transition: transform 0.15s; position: relative; overflow: hidden; }
     .big-btn::before { content: ''; position: absolute; inset: 3px; border-radius: 50%; background: var(--bg); }
     .big-btn:active { transform: scale(0.95); }
-    .big-btn:disabled { opacity: 0.5; cursor: default; }
     .btn-icon { font-size: 2.2rem; position: relative; z-index: 1; }
     .btn-text { font-family: var(--mono); font-size: 0.65rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text); position: relative; z-index: 1; }
-
     .status { font-size: 0.78rem; color: var(--muted); text-align: center; font-family: var(--mono); min-height: 1.4em; letter-spacing: 0.04em; line-height: 1.5; padding: 0 1rem; }
     .status.success { color: var(--green); }
     .status.info    { color: var(--accent); }
     .status.warn    { color: #ff9f43; }
-
     .reset-btn { background: none; border: 1px solid var(--border); color: var(--muted); font-family: var(--mono); font-size: 0.7rem; padding: 0.4rem 1rem; border-radius: 8px; cursor: pointer; display: none; }
     .reset-btn.visible { display: block; }
-
     .setup-section { width: 100%; border: 1px solid var(--border); border-radius: 14px; padding: 1rem 1.2rem; background: var(--surface); }
     details > summary { cursor: pointer; font-family: var(--mono); font-size: 0.7rem; color: var(--muted); letter-spacing: 0.1em; text-transform: uppercase; list-style: none; }
     details > summary::before { content: '▶ '; font-size: 0.6rem; }
@@ -117,27 +95,22 @@
     </div>
   </div>
 
-  <!-- Phase 1: big sleep button -->
   <div id="phase1">
-    <button class="big-btn" id="sleepBtn" onclick="startSleep()">
+    <button class="big-btn" onclick="startSleep()">
       <span class="btn-icon">😴</span>
       <span class="btn-text">Sleep</span>
     </button>
   </div>
 
-  <!-- Phase 2: step-by-step set buttons -->
   <div class="step-btns" id="phase2" style="display:none;">
     <button class="step-btn" id="btn-0" onclick="setAlarm(0)">
-      <span>① Set vibration alarm <span id="tlabel-0"></span></span>
-      <span class="arrow">→</span>
+      <span>① Wake up <span id="tlabel-0"></span></span><span>→</span>
     </button>
     <button class="step-btn" id="btn-1" onclick="setAlarm(1)" disabled>
-      <span>② Set Sencha alarm <span id="tlabel-1"></span></span>
-      <span class="arrow">→</span>
+      <span>② Sencha <span id="tlabel-1"></span></span><span>→</span>
     </button>
     <button class="step-btn" id="btn-2" onclick="setAlarm(2)" disabled>
-      <span>③ Set speech alarm <span id="tlabel-2"></span></span>
-      <span class="arrow">→</span>
+      <span>③ Speech <span id="tlabel-2"></span></span><span>→</span>
     </button>
   </div>
 
@@ -151,7 +124,7 @@
         <div class="setup-step">1. Download both tones below.</div>
         <div class="setup-step">2. Move them to <strong>Files → Internal Storage → Alarms</strong></div>
         <div class="setup-step">3. Keep exact filenames: <strong>Sencha.m4a</strong> and <strong>Speech.m4a</strong></div>
-        <div class="warn-text">⚠ Custom tones won't play until they're in the Alarms folder.</div>
+        <div class="warn-text">⚠ Custom tones won't play until files are in the Alarms folder.</div>
         <div class="download-row">
           <a id="dlSencha" class="dl-btn" download="Sencha.m4a">⬇ Sencha.m4a</a>
           <a id="dlSpeech" class="dl-btn" download="Speech.m4a">⬇ Speech.m4a</a>
@@ -169,35 +142,38 @@
 
   const offsets = [7*60+40, 7*60+43, 7*60+46];
   const configs = [
-    { label: 'Wake Up',        ringtone: '',    vibrate: true  },
-    { label: 'Snooze Sencha',  ringtone: 'file:///storage/emulated/0/Alarms/Sencha.m4a', vibrate: true },
-    { label: 'Snooze Speech',  ringtone: 'file:///storage/emulated/0/Alarms/Speech.m4a', vibrate: true },
+    { label: 'Wake Up',       ringtone: '',    vibrate: true },
+    { label: 'Snooze Sencha', ringtone: 'file:///storage/emulated/0/Alarms/Sencha.m4a', vibrate: true },
+    { label: 'Snooze Speech', ringtone: 'file:///storage/emulated/0/Alarms/Speech.m4a', vibrate: true },
   ];
 
   let times = [];
-  let completed = 0;
 
   function pad(n) { return String(n).padStart(2,'0'); }
   function fmt(d) { return pad(d.getHours()) + ':' + pad(d.getMinutes()); }
 
   function makeIntent(date, cfg) {
     const h = date.getHours(), m = date.getMinutes();
-    let uri = 'intent:#Intent;action=android.intent.action.SET_ALARM;' +
+    // Chrome-compatible intent format with Samsung Clock package
+    let uri = 'intent://#Intent;' +
+      'action=android.intent.action.SET_ALARM;' +
+      'package=com.sec.android.app.clockpackage;' +
       'i.android.intent.extra.alarm.HOUR=' + h + ';' +
       'i.android.intent.extra.alarm.MINUTES=' + m + ';' +
       'S.android.intent.extra.alarm.MESSAGE=' + encodeURIComponent(cfg.label) + ';' +
       'b.android.intent.extra.alarm.SKIP_UI=false;' +
       'b.android.intent.extra.alarm.VIBRATE=' + cfg.vibrate + ';';
-    if (cfg.ringtone !== null) {
+    if (cfg.ringtone !== '') {
       uri += 'S.android.intent.extra.alarm.RINGTONE=' + encodeURIComponent(cfg.ringtone) + ';';
+    } else {
+      uri += 'S.android.intent.extra.alarm.RINGTONE=silent;';
     }
     return uri + 'end';
   }
 
   function setStatus(msg, cls) {
     const el = document.getElementById('status');
-    el.textContent = msg;
-    el.className = 'status ' + (cls || '');
+    el.textContent = msg; el.className = 'status ' + (cls||'');
   }
 
   function startSleep() {
@@ -210,46 +186,39 @@
     });
     document.getElementById('phase1').style.display = 'none';
     document.getElementById('phase2').style.display = 'flex';
-    setStatus('tap each button → save the alarm → come back', 'warn');
+    setStatus('tap each → save in Clock → come back', 'warn');
   }
 
   function setAlarm(i) {
-    const url = makeIntent(times[i], configs[i]);
-    window.location.href = url;
-
-    // Mark done after a short delay (user will return from Clock app)
+    window.location.href = makeIntent(times[i], configs[i]);
     setTimeout(() => {
       document.getElementById('btn-' + i).classList.add('done');
       document.getElementById('btn-' + i).disabled = true;
       document.getElementById('card-' + i).classList.remove('waiting');
       document.getElementById('card-' + i).classList.add('done');
       document.getElementById('time-' + i).classList.add('done');
-      completed++;
       if (i + 1 < 3) {
         document.getElementById('btn-' + (i+1)).disabled = false;
-        setStatus('alarm ' + (i+1) + ' set! now tap \u2192 alarm ' + (i+2), 'info');
+        setStatus('alarm ' + (i+1) + ' set! now tap alarm ' + (i+2), 'info');
       } else {
         setStatus('✓ all 3 alarms set — goodnight 🌙', 'success');
         document.getElementById('resetBtn').classList.add('visible');
       }
-    }, 2000);
+    }, 2500);
   }
 
   function reset() {
-    times = []; completed = 0;
+    times = [];
     document.getElementById('phase1').style.display = 'flex';
     document.getElementById('phase2').style.display = 'none';
     document.getElementById('resetBtn').classList.remove('visible');
     setStatus('press when you lay down');
     for (let i = 0; i < 3; i++) {
-      const card = document.getElementById('card-' + i);
-      card.classList.remove('active','done','waiting');
-      card.style.opacity = '0.4';
+      document.getElementById('card-' + i).classList.remove('waiting','done');
       const t = document.getElementById('time-' + i);
       t.textContent = '--:--'; t.classList.remove('done');
       const btn = document.getElementById('btn-' + i);
-      btn.classList.remove('done');
-      btn.disabled = (i !== 0);
+      btn.classList.remove('done'); btn.disabled = (i !== 0);
     }
   }
 </script>
